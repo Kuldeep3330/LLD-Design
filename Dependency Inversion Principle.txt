@@ -1,0 +1,51 @@
+Refactored Example Using DIP
+class INotificationService
+{
+public:
+    virtual void send(const string &message) = 0; // Abstract method
+    virtual ~INotificationService() = default;
+};
+class EmailService : public INotificationService
+{
+public:
+    void send(const string &message) override
+    {
+        cout << "Sending email: " << message << endl;
+    }
+};
+
+class SMSService : public INotificationService
+{
+public:
+    void send(const string &message) override
+    {
+        cout << "Sending SMS: " << message << endl;
+    }
+};
+class Notification
+{
+public:
+    Notification(INotificationService *service) : notificationService(service) {}
+
+    void notify(const string &message)
+    {
+        notificationService->send(message);
+    }
+
+private:
+    INotificationService *notificationService; // Depend on abstraction
+};
+int main()
+{
+    // Using EmailService
+    EmailService emailService;
+    Notification emailNotifier(&emailService);
+    emailNotifier.notify("Hello via Email!");
+
+    // Using SMSService
+    SMSService smsService;
+    Notification smsNotifier(&smsService);
+    smsNotifier.notify("Hello via SMS!");
+
+    return 0;
+}

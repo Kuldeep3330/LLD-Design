@@ -1,0 +1,123 @@
+#include <iostream>
+#include <memory>
+#include <string>
+using namespace std;
+
+// Forward declaration of Context
+class VendingMachine;
+
+// Abstract State Interface
+class State
+{
+public:
+    virtual void insertCoin(VendingMachine &machine) = 0;
+    virtual void selectItem(VendingMachine &machine) = 0;
+    virtual void dispenseItem(VendingMachine &machine) = 0;
+    virtual ~State() = default;
+};
+
+class IdleState : public State
+{
+public:
+    void insertCoin(VendingMachine &machine) override;
+    void selectItem(VendingMachine &machine) override
+    {
+        cout << "Please insert a coin first.\n";
+    }
+    void dispenseItem(VendingMachine &machine) override
+    {
+        cout << "Insert a coin and select an item first.\n";
+    }
+};
+
+class HasCoinState : public State
+{
+public:
+    void insertCoin(VendingMachine &machine) override
+    {
+        cout << "Coin already inserted.\n";
+    }
+    void selectItem(VendingMachine &machine) override;
+    void dispenseItem(VendingMachine &machine) override
+    {
+        cout << "Select an item first.\n";
+    }
+};
+
+class DispensingState : public State
+{
+public:
+    void insertCoin(VendingMachine &machine) override
+    {
+        cout << "Please wait, dispensing your item.\n";
+    }
+    void selectItem(VendingMachine &machine) override
+    {
+        cout << "Item is already being dispensed.\n";
+    }
+    void dispenseItem(VendingMachine &machine) override
+    {
+        cout << "Dispensing your item...\n";
+    }
+};
+
+
+class VendingMachine
+{
+public:
+    VendingMachine()
+    {
+        // Initialize states
+        idleState = make_unique<IdleState>();
+        hasCoinState = make_unique<HasCoinState>();
+        dispensingState = make_unique<DispensingState>();
+        // Set the initial state
+        currentState = idleState.get();
+    }
+
+    void setState(State *state) { currentState = state; }
+
+    // Actions
+    void insertCoin() { currentState->insertCoin(*this); }
+    void selectItem() { currentState->selectItem(*this); }
+    void dispenseItem() { currentState->dispenseItem(*this); }
+
+    // State getters
+    State *getIdleState() { return idleState.get(); }
+    State *getHasCoinState() { return hasCoinState.get(); }
+    State *getDispensingState() { return dispensingState.get(); }
+
+private:
+    unique_ptr<State> idleState;
+    unique_ptr<State> hasCoinState;
+    unique_ptr<State> dispensingState;
+    State *currentState;
+};
+
+
+void IdleState::insertCoin(VendingMachine &machine)
+{
+    cout << "Coin inserted. You can now select an item.\n";
+    machine.setState(machine.getHasCoinState());
+}
+
+void HasCoinState::selectItem(VendingMachine &machine)
+{
+    cout << "Item selected. Dispensing now...\n";
+    machine.setState(machine.getDispensingState());
+    machine.dispenseItem();
+}
+
+
+int main()
+{
+    VendingMachine vendingMachine;
+
+    vendingMachine.insertCoin();  // Transition: Idle -> HasCoin
+    vendingMachine.selectItem();  // Transition: HasCoin -> Dispensing
+    vendingMachine.insertCoin();  // Invalid in Dispensing state
+
+    return 0;
+}
+
+

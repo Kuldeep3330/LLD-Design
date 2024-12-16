@@ -1,0 +1,66 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+
+using namespace std;
+
+// Class for managing reports
+class ReportManager {
+public:
+    void addReport(const string &report) {
+        reports.push_back(report);
+    }
+
+    const vector<string>& getReports() const {
+        return reports;
+    }
+
+private:
+    vector<string> reports;
+};
+
+// Class for printing reports
+class ReportPrinter {
+public:
+    void printReports(const vector<string> &reports) const {
+        for (const auto &report : reports) {
+            cout << report << endl;
+        }
+    }
+};
+
+// Class for saving reports to a file
+class ReportSaver {
+public:
+    void saveReportsToFile(const vector<string> &reports, const string &filename) const {
+        ofstream file(filename);
+        if (file.is_open()) {
+            for (const auto &report : reports) {
+                file << report << endl;
+            }
+            file.close();
+            cout << "Reports saved to " << filename << endl;
+        } else {
+            cerr << "Failed to open file: " << filename << endl;
+        }
+    }
+};
+
+int main() {
+    ReportManager reportManager;
+    ReportPrinter reportPrinter;
+    ReportSaver reportSaver;
+
+    // Add some reports
+    reportManager.addReport("Report 1");
+    reportManager.addReport("Report 2");
+
+    // Print reports
+    reportPrinter.printReports(reportManager.getReports());
+
+    // Save reports to a file
+    reportSaver.saveReportsToFile(reportManager.getReports(), "reports.txt");
+
+    return 0;
+}

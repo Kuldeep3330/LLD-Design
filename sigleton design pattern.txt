@@ -20,7 +20,7 @@ public:
     static Singleton* getInstance() {
         if (instance == nullptr) {
             instance = new Singleton();
-        }
+        }class 
         return instance;
     }
 

@@ -5,7 +5,10 @@ class Singleton
 {
 private:
     static Singleton *instance;
-    Singleton() {}
+    Singleton()
+    {
+        cout << "Singleton Instance Created" << endl;
+    }
 
 public:
     // public static method to get instance

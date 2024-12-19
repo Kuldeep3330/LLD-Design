@@ -3,7 +3,7 @@ LLD live classes GFG
 https://docs.google.com/document/d/1dU7ATl6MW0vwFPbt-Lw3tgm85i-xgQPboARDpHJTl5w/edit?usp=sharing
 
 singleton pattern 	completed
-command pattern
+command pattern		completed
 proxy pattern
 bridge pattern
 template design pattern

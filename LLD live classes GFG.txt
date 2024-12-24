@@ -1,10 +1,265 @@
 LLD live classes GFG
 
 https://docs.google.com/document/d/1dU7ATl6MW0vwFPbt-Lw3tgm85i-xgQPboARDpHJTl5w/edit?usp=sharing
+--------------------
+basic
+aggregation 	1
+composition	1
+interface	1
+inheritance	
+SRP		1
+OCP		1
+LSP
+ISP
+DIP
 
 singleton pattern 	completed
 command pattern		completed
-proxy pattern
+proxy pattern		completed	1
+bridge pattern		completed
+template design pattern completed
+iterator pattern     	completed
+composite pattern       completed	 
+
+//proxy
+class Image
+{
+public:
+    virtual void display() const = 0;
+};
+class RealImage : public Image
+{
+private:
+    string filename;
+
+public:
+    RealImage(const string &filename) : filename(filename)
+    {
+        loadFromDisk();
+    }
+    void loadFromDisk()
+    {
+        cout << "loading " << filename << endl;
+    }
+    void display() const override
+    {
+        cout << "display " << filename;
+    }
+};
+class ProxyImage : public Image
+{
+private:
+    mutable unique_ptr<RealImage> realImage;
+    string filename;
+
+public:
+    ProxyImage(string filename) : filename(filename) {}
+    void display() const override
+    {
+        if (realImage == nullptr)
+        {
+            realImage = make_unique<RealImage>(filename);
+        }
+        realImage->display();
+    }
+};
+int main()
+{
+    Image *image = new ProxyImage("vasab.png");
+    image->display();
+}
+-----------------------
 bridge pattern
-template design pattern
-iterator pattern
+#include <iostream>
+#include <memory>
+using namespace std;
+
+// Abstract Device Interface
+class Device
+{
+public:
+    virtual void turnOn() const = 0;
+    virtual void turnOff() const = 0;
+    virtual ~Device() = default;
+};
+
+// Concrete Device: TV
+class TV : public Device
+{
+public:
+    void turnOn() const override
+    {
+        cout << "TV on\n";
+    }
+    void turnOff() const override
+    {
+        cout << "TV off\n";
+    }
+};
+
+// Concrete Device: Radio
+class Radio : public Device
+{
+public:
+    void turnOn() const override
+    {
+        cout << "Radio on\n";
+    }
+    void turnOff() const override
+    {
+        cout << "Radio off\n";
+    }
+};
+
+// Abstract Remote Control
+class RemoteControl
+{
+protected:
+    shared_ptr<Device> device;
+
+public:
+    RemoteControl(shared_ptr<Device> dev) : device(dev) {}
+    virtual void togglePower() = 0;
+    virtual ~RemoteControl() = default;
+};
+
+// Concrete Implementation: BasicRemote
+class BasicRemote : public RemoteControl
+{
+    bool isOn = false;
+
+public:
+    BasicRemote(shared_ptr<Device> dev) : RemoteControl(dev) {}
+    void togglePower() override
+    {
+        if (isOn)
+        {
+            device->turnOff();
+        }
+        else
+        {
+            device->turnOn();
+        }
+        isOn = !isOn; // Toggle power state
+    }
+};
+
+// Concrete Implementation: AdvancedRemote (Example)
+class AdvancedRemote : public BasicRemote
+{
+public:
+    AdvancedRemote(shared_ptr<Device> dev) : BasicRemote(dev) {}
+    void mute()
+    {
+        cout << "Device muted\n";
+    }
+};
+
+// Main Function
+int main()
+{
+    auto tv = make_shared<TV>();
+    auto radio = make_shared<Radio>();
+    // Use BasicRemote with TV
+    shared_ptr<RemoteControl> remote = make_shared<BasicRemote>(tv);
+    remote->togglePower(); // Turn TV on
+    remote->togglePower(); // Turn TV off
+    // Use AdvancedRemote with Radio
+    remote = make_shared<AdvancedRemote>(radio);
+    remote->togglePower(); // Turn Radio on
+    // Mute the Radio using AdvancedRemote
+    dynamic_pointer_cast<AdvancedRemote>(remote)->mute();
+
+    return 0;
+}
+---------------------------------------------------------
+template pattern
+class Game
+{
+public:
+    virtual void initialise() = 0;
+    virtual void startPlay() = 0;
+    virtual void endPlay() = 0;
+    void play()
+    {
+        initialise();
+        startPlay();
+        endPlay();
+    }
+    virtual ~Game() = default;
+};
+class Cricket : public Game
+{
+public:
+    void initialise() override { cout << "cricket initialised\n"; }
+    void startPlay() override { cout << "cricket starts\n"; }
+    void endPlay() override { cout << "cricket ends\n"; }
+};
+class Basketball : public Game
+{
+public:
+    void initialise() override { cout << "Basketball initialised\n"; }
+    void startPlay() override { cout << "Basketball starts\n"; }
+    void endPlay() override { cout << "Basketball ends\n"; }
+};
+int main()
+{
+    Game *game = new Cricket();
+    game->play();
+    game = new Basketball();
+    game->play();
+    return 0;
+}
+------------------------------------------------------
+iterator method
+
+----------------------------------
+composite
+#include <iostream>
+#include <vector>
+using namespace std;
+class Component
+{
+public:
+    virtual void showDetails() = 0;
+};
+class Leaf : public Component
+{
+private:
+    string name;
+
+public:
+    Leaf(const string &name) : name(name) {}
+    void showDetails() override
+    {
+        cout << "leaf : " << name << "\n ";
+    }
+};
+class Composite : public Component
+{
+private:
+    vector<Component *> childrens;
+
+public:
+    void add(Component *children)
+    {
+        childrens.push_back(children);
+    }
+    void showDetails()
+    {
+        for (auto it : childrens)
+        {
+            it->showDetails();
+        }
+    }
+};
+int main()
+{
+    Leaf *leaf1 = new Leaf("Leaf 1");
+    Leaf *leaf2 = new Leaf("Leaf 2");
+    Composite *composite = new Composite();
+    composite->add(leaf1);
+    composite->add(leaf2);
+    composite->showDetails();
+    return 0;
+}

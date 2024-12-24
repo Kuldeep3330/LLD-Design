@@ -64,3 +64,146 @@ int main() {
 
     return 0;
 }
+-------------------------------
+without SRP
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Employee {
+    string name;
+    int id;
+
+public:
+    Employee(string n, int i) : name(n), id(i) {}
+
+    void saveToDatabase() {
+        // Code to save employee data to the database
+        cout << "Saving " << name << " to database.\n";
+    }
+
+    void calculateSalary() {
+        // Code to calculate salary
+        cout << "Calculating salary for " << name << ".\n";
+    }
+};
+
+int main() {
+    Employee emp("John", 101);
+    emp.saveToDatabase();
+    emp.calculateSalary();
+    return 0;
+}
+=-----------------------------------
+Example 3: Logging System
+Without SRP:
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+class Logger {
+    string logFile;
+
+public:
+    Logger(string file) : logFile(file) {}
+
+    void log(string message) {
+        // Display message to console
+        cout << "LOG: " << message << endl;
+
+        // Write message to file
+        ofstream file(logFile, ios::app);
+        if (file.is_open()) {
+            file << "LOG: " << message << endl;
+            file.close();
+        }
+    }
+};
+
+int main() {
+    Logger logger("log.txt");
+    logger.log("This is a log message.");
+    return 0;
+}
+--------------------------------
+with SRP
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+class ConsoleLogger {
+public:
+    void logToConsole(string message) {
+        cout << "LOG: " << message << endl;
+    }
+};
+
+class FileLogger {
+    string logFile;
+
+public:
+    FileLogger(string file) : logFile(file) {}
+
+    void logToFile(string message) {
+        ofstream file(logFile, ios::app);
+        if (file.is_open()) {
+            file << "LOG: " << message << endl;
+            file.close();
+        }
+    }
+};
+
+int main() {
+    ConsoleLogger consoleLogger;
+    FileLogger fileLogger("log.txt");
+
+    consoleLogger.logToConsole("This is a log message.");
+    fileLogger.logToFile("This is a log message.");
+    return 0;
+}
+
+
+------------------------------
+with SRP
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Employee {
+    string name;
+    int id;
+
+public:
+    Employee(string n, int i) : name(n), id(i) {}
+    string getName() const { return name; }
+    int getId() const { return id; }
+};
+
+class EmployeeDatabase {
+public:
+    void save(const Employee& emp) {
+        // Code to save employee data to the database
+        cout << "Saving " << emp.getName() << " to database.\n";
+    }
+};
+
+class SalaryCalculator {
+public:
+    void calculate(const Employee& emp) {
+        // Code to calculate salary
+        cout << "Calculating salary for " << emp.getName() << ".\n";
+    }
+};
+
+int main() {
+    Employee emp("John", 101);
+    EmployeeDatabase db;
+    SalaryCalculator sc;
+
+    db.save(emp);
+    sc.calculate(emp);
+
+    return 0;
+}

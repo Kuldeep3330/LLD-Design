@@ -94,7 +94,50 @@ int main() {
     emp.calculateSalary();
     return 0;
 }
-=-----------------------------------
+------------------------------
+with SRP
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Employee {
+    string name;
+    int id;
+
+public:
+    Employee(string n, int i) : name(n), id(i) {}
+    string getName() const { return name; }
+    int getId() const { return id; }
+};
+
+class EmployeeDatabase {
+public:
+    void save(const Employee& emp) {
+        // Code to save employee data to the database
+        cout << "Saving " << emp.getName() << " to database.\n";
+    }
+};
+
+class SalaryCalculator {
+public:
+    void calculate(const Employee& emp) {
+        // Code to calculate salary
+        cout << "Calculating salary for " << emp.getName() << ".\n";
+    }
+};
+
+int main() {
+    Employee emp("John", 101);
+    EmployeeDatabase db;
+    SalaryCalculator sc;
+
+    db.save(emp);
+    sc.calculate(emp);
+
+    return 0;
+}
+
+------------------------------------
 Example 3: Logging System
 Without SRP:
 #include <iostream>
@@ -165,45 +208,3 @@ int main() {
 }
 
 
-------------------------------
-with SRP
-#include <iostream>
-#include <string>
-using namespace std;
-
-class Employee {
-    string name;
-    int id;
-
-public:
-    Employee(string n, int i) : name(n), id(i) {}
-    string getName() const { return name; }
-    int getId() const { return id; }
-};
-
-class EmployeeDatabase {
-public:
-    void save(const Employee& emp) {
-        // Code to save employee data to the database
-        cout << "Saving " << emp.getName() << " to database.\n";
-    }
-};
-
-class SalaryCalculator {
-public:
-    void calculate(const Employee& emp) {
-        // Code to calculate salary
-        cout << "Calculating salary for " << emp.getName() << ".\n";
-    }
-};
-
-int main() {
-    Employee emp("John", 101);
-    EmployeeDatabase db;
-    SalaryCalculator sc;
-
-    db.save(emp);
-    sc.calculate(emp);
-
-    return 0;
-}

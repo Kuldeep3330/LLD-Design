@@ -40,30 +40,35 @@ public:
 };
 
 // invoker
-class RemoteControl
-{
-private:
-    vector<Command *> commands;
+// class RemoteControl
+// {
+// private:
+//     vector<Command *> commands;
 
-public:
-    void addCommands(Command *command)
-    {
-        commands.push_back(command);
-    }
-    void pressButton()
-    {
-        if (!commands.empty())
-        {
-            commands.back()->execute();
-            commands.pop_back();
-        }
-        else
-        {
-            cout << "No more commands\n";
-        }
-    }
-};
+// public:
+//     void addCommands(Command *command)
+//     {
+//         commands.push_back(command);
+//     }
+//     void pressButton()
+//     {
+//         if (!commands.empty())
+//         {
+//             commands.back()->execute();
+//             commands.pop_back();
+//         }
+//         else
+//         {
+//             cout << "No more commands\n";
+//         }
+//     }
+// };
 
+// class RemoteControl{
+//     private:
+//     Command command;
+//     public
+// };
 int main()
 {
     Light roomLight;

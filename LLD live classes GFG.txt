@@ -1,26 +1,162 @@
 LLD live classes GFG
 
+Creational	Singleton, Factory Method, Abstract Factory, Builder, Prototype
+Structural	Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy
+Behavioral	Chain of Responsibility, Command, Interpreter, Iterator, Mediator, Memento, Observer, State, Strategy, Template Method, Visitor
+
+Creational: When you need flexible and reusable object creation.
+Structural: When managing relationships between entities or simplifying system architecture.
+Behavioral: When focusing on interactions and responsibilities between objects.
+
 https://docs.google.com/document/d/1dU7ATl6MW0vwFPbt-Lw3tgm85i-xgQPboARDpHJTl5w/edit?usp=sharing
 --------------------
 basic
-aggregation 	1
-composition	1
-interface	1
+aggregation 	1 2
+composition	1 2
+interface	1 
 inheritance	
-SRP		1
-OCP		1
-LSP
-ISP
-DIP
+SRP		1 2
+OCP		1 2
+LSP		1
+ISP		1
+DIP		
 
-singleton pattern 	completed
-command pattern		completed
-proxy pattern		completed	1
-bridge pattern		completed
-template design pattern completed
-iterator pattern     	completed
-composite pattern       completed	 
+singleton pattern 	completed	1 1 (Ensures a class has only one instance and provides a global point of access.)
+command pattern		completed	1 1 (Encapsulates a request as an object, allowing parameterization of requests and queuing them.)
+proxy pattern		completed	1 1 (Provides a surrogate or placeholder for another object to control access to it.)
+bridge pattern		completed	1 1 (Decouples an abstraction from its implementation, allowing them to vary independently.)
+Template Method Pattern completed	1 1 (Defines the skeleton of an algorithm, letting subclasses implement specific steps.)
+iterator pattern     	completed (Provides a way to access elements of a collection sequentially without exposing its underlying representation.)
+composite pattern       completed	1 1 (Composes objects into tree structures to represent part-whole hierarchies.)
+--------------------------------------------------
+//singleton pattern
+class Singleton
+{
+private:
+    static Singleton *instance;
+    Singleton()
+    {
+        cout << "Singleton Instance Created" << endl;
+    }
 
+public:
+    // public static method to get instance
+    static Singleton *getInstance()
+    {
+        if (instance == nullptr)
+        {
+            instance = new Singleton();
+        }
+        else
+        {
+            return instance;
+        }
+    }
+    void dispaly()
+    {
+        cout << "single instance created: " << this << "\n";
+    }
+};
+// intialisation of the static keyword
+Singleton *Singleton::instance = nullptr;
+int main()
+{
+    Singleton *s1 = Singleton::getInstance();
+    s1->dispaly();
+    // Singleton *s2 = Singleton::getInstance();
+    // s2->dispaly();
+    return 0;
+}
+--------------------------------------------------
+//command pattern
+#include <iostream>
+#include <memory>
+using namespace std;
+
+// Command Interface
+class Command
+{
+public:
+    virtual void execute() = 0;
+    virtual ~Command() = default; //1
+};
+
+// Receiver
+class Light
+{
+public:
+    void turnOn()
+    {
+        cout << "Light ON" << endl;
+    }
+    void turnOff()
+    {
+        cout << "Light OFF" << endl;
+    }
+};
+
+// Concrete Command: TurnOnLightCommand
+class TurnOnLightCommand : public Command
+{
+private:
+    Light &light;
+
+public:
+    TurnOnLightCommand(Light &light) : light(light) {}
+    void execute() override { light.turnOn(); }
+};
+
+// Concrete Command: TurnOffLightCommand
+class TurnOffLightCommand : public Command
+{
+private:
+    Light &light;
+
+public:
+    TurnOffLightCommand(Light &light) : light(light) {}
+    void execute() override { light.turnOff(); }
+};
+
+// Invoker
+class RemoteControl
+{
+private:
+    Command *command = nullptr; // Store the command
+
+public:
+    void setCommand(Command *cmd)
+    {
+        command = cmd;
+    }
+    void pressButton()
+    {
+        if (command)
+            command->execute();
+    }
+};
+
+int main()
+{
+    Light roomLight;
+
+    // Create commands
+    TurnOnLightCommand lightOn(roomLight);
+    TurnOffLightCommand lightOff(roomLight);
+
+    // Remote control
+    RemoteControl remote;
+
+    // Turn light on
+    remote.setCommand(&lightOn);
+    remote.pressButton();
+
+    // Turn light off
+    remote.setCommand(&lightOff);
+    remote.pressButton();
+
+    return 0;
+}
+--------------------------------------------------
 //proxy
 class Image
 {
@@ -214,7 +350,7 @@ int main()
 iterator method
 
 ----------------------------------
-composite
+composite (is nothing but aggregation)
 #include <iostream>
 #include <vector>
 using namespace std;

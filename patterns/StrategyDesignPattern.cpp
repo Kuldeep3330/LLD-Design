@@ -51,7 +51,7 @@ using namespace std;
 //     }
 // };
 
-// // createing the context class which will use the startegy
+// // creating the context class which will use the startegy
 // class PaymentContext
 // {
 // private:
@@ -67,73 +67,118 @@ using namespace std;
 //         strategy->pay(amount);
 //     }
 // };
-
 // Sorting Algorithm
 // Define the strategy Interface
-class SortingStartegy
+// class SortingStartegy
+// {
+// public:
+//     virtual void sort(vector<int> &v) = 0;
+//     virtual ~SortingStartegy() = default;
+// };
+// // implementing concrete strategies
+// // strategy 1
+// class BubbleSort : public SortingStartegy
+// {
+// public:
+//     void sort(vector<int> &data) override
+//     {
+//         for (int i = 0; i < data.size() - 1; i++)
+//         {
+//             for (int j = 0; j < data.size() - 1; j++)
+//             {
+//                 if (data[j] > data[j + 1])
+//                 {
+//                     swap(data[j], data[j + 1]);
+//                 }
+//             }
+//         }
+//         cout << "sorted data using Bubble sort\n";
+//     }
+// };
+// // strategy 2
+// class QuickSort : public SortingStartegy
+// {
+// public:
+//     void sort(vector<int> &data) override
+//     {
+//         cout << "data got sorted using Quick sort\n";
+//     }
+// };
+// // create context class
+// class SortContext
+// {
+// private:
+//     SortingStartegy *strategy;
+// public:
+//     SortContext(SortingStartegy *strategy) : strategy(strategy) {}
+//     void setStrategy(SortingStartegy *strategy)
+//     {
+//         this->strategy = strategy;
+//     }
+//     void executeSort(vector<int> &data)
+//     {
+//         strategy->sort(data);
+//     }
+// };
+
+// Compression algorithm
+class CompressionStrategy
 {
 public:
-    virtual void sort(vector<int> &v) = 0;
-    virtual ~SortingStartegy() = default;
+    virtual void compress(const string &filename) = 0;
+    virtual ~CompressionStrategy() = default;
 };
-// implementing concrete strategies
-// strategy 1
-class BubbleSort : public SortingStartegy
+class ZipCompression : public CompressionStrategy
 {
 public:
-    void sort(vector<int> &data) override
+    void compress(const string &filename) override
     {
-        for (int i = 0; i < data.size() - 1; i++)
-        {
-            for (int j = 0; j < data.size() - 1; j++)
-            {
-                if (data[j] > data[j + 1])
-                {
-                    swap(data[j], data[j + 1]);
-                }
-            }
-        }
-        cout << "sorted data using Bubble sort\n";
+        cout << "compressed using ZIP\n";
     }
 };
-// strategy 2
-class QuickSort : public SortingStartegy
+class RarCompression : public CompressionStrategy
 {
 public:
-    void sort(vector<int> &data) override
+    void compress(const string &filename) override
     {
-        cout << "data got sorted using Quick sort\n";
+        cout << "compressed using RAR\n";
     }
 };
-// create context class
-class SortContext
+// create The context class
+class FileCompressor
 {
 private:
-    SortingStartegy *strategy;
+    CompressionStrategy *strategy;
 
 public:
-    SortContext(SortingStartegy *strategy) : strategy(strategy) {}
-    void setStrategy(SortingStartegy *strategy)
+    FileCompressor(CompressionStrategy *strategy) : strategy(strategy) {}
+    void setStategy(CompressionStrategy *strategy)
     {
         this->strategy = strategy;
     }
-    void executeSort(vector<int> &data)
+    void execute(const string &filename)
     {
-        strategy->sort(data);
+        strategy->compress(filename);
     }
 };
 int main()
 {
+    // client code for compression
+    CompressionStrategy *zip = new ZipCompression();
+    FileCompressor *fc = new FileCompressor(zip);
+    fc->execute("documnet.txt");
+    delete fc;
+    delete zip;
     // client code for sorting
-    vector<int> data = {23, 6, 4, 54, 21, 1};
-    SortingStartegy *bubbleSort = new BubbleSort();
-    SortingStartegy *quickSort = new QuickSort();
-    SortContext *context;
-    context = new SortContext(bubbleSort);
-    context->executeSort(data);
-    delete context;
-    delete quickSort;
-    delete bubbleSort;
+    // vector<int> data = {23, 6, 4, 54, 21, 1};
+    // SortingStartegy *bubbleSort = new BubbleSort();
+    // SortingStartegy *quickSort = new QuickSort();
+    // SortContext *context;
+    // context = new SortContext(bubbleSort);
+    // context->executeSort(data);
+    // delete context;
+    // delete quickSort;
+    // delete bubbleSort;
 
     // //client code for payment
     // PaymentStrategy *cash = new Cash();

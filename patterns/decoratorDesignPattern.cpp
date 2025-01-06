@@ -2,85 +2,168 @@
 #include <string>
 
 using namespace std;
+// //coffee customization
+// class Coffee
+// {
+// public:
+//     virtual string getDescription() const = 0;
+//     virtual int getCost() const = 0;
+//     virtual ~Coffee() = default;
+// };
+// // simplecoffee is a coffee
+// class SimpleCoffee : public Coffee
+// {
+// public:
+//     string getDescription() const override
+//     {
+//         return "simple coffee";
+//     }
+//     int getCost() const override
+//     {
+//         return 10;
+//     }
+// };
 
-class Coffee
+// // decorator
+// //  means coffeeDecorator is a coffee and coffeedecorator has a coffee
+// class CoffeeDecorator : public Coffee
+// {
+// protected:
+//     Coffee *coffee;
+
+// public:
+//     CoffeeDecorator(Coffee *coffee) : coffee(coffee) {}
+//     string getDescription() const override
+//     {
+//         return coffee->getDescription();
+//     }
+//     int getCost() const override
+//     {
+//         return coffee->getCost();
+//     }
+//     virtual ~CoffeeDecorator()
+//     {
+//         delete coffee;
+//     }
+// };
+// // concrete decorator
+// class Milk : public CoffeeDecorator
+// {
+// public:
+//     Milk(Coffee *coffee) : CoffeeDecorator(coffee) {}
+//     string getDescription() const override
+//     {
+//         return coffee->getDescription() + " Milk";
+//     }
+//     int getCost() const override
+//     {
+//         return coffee->getCost() + 10;
+//     }
+// };
+// class Caramel : public CoffeeDecorator
+// {
+// public:
+//     Caramel(Coffee *coffee) : CoffeeDecorator(coffee) {}
+//     string getDescription() const override
+//     {
+//         return coffee->getDescription() + " caramel";
+//     }
+//     int getCost() const override
+//     {
+//         return coffee->getCost() + 20;
+//     }
+// };
+
+// pizza customization
+class Pizza
 {
 public:
     virtual string getDescription() const = 0;
-    virtual int getCost() const = 0;
-    virtual ~Coffee() = default;
+    virtual double getCost() const = 0;
+    virtual ~Pizza() = default;
 };
-// simplecoffee is a coffee
-class SimpleCoffee : public Coffee
+// concrete component
+class PlainPizza : public Pizza
 {
 public:
     string getDescription() const override
     {
-        return "simple coffee";
+        return "plain pizza";
     }
-    int getCost() const override
+    double getCost() const override
     {
-        return 10;
+        return 10.0;
     }
 };
-
-// decorator
-//  means coffeeDecorator is a coffee and coffeedecorator has a coffee
-class CoffeeDecorator : public Coffee
+// Decorator
+class PizzaDecorator : public Pizza
 {
 protected:
-    Coffee *coffee;
+    Pizza *pizza;
 
 public:
-    CoffeeDecorator(Coffee *coffee) : coffee(coffee) {}
+    PizzaDecorator(Pizza *pizza) : pizza(pizza) {}
     string getDescription() const override
     {
-        return coffee->getDescription();
+        return pizza->getDescription();
     }
-    int getCost() const override
+    double getCost() const override
     {
-        return coffee->getCost();
+        return pizza->getCost();
     }
-    virtual ~CoffeeDecorator()
+    virtual ~PizzaDecorator()
     {
-        delete coffee;
+        delete pizza;
     }
 };
-// concrete decorator
-class Milk : public CoffeeDecorator
+// concrete decorators
+class Cheese : public PizzaDecorator
 {
+private:
 public:
-    Milk(Coffee *coffee) : CoffeeDecorator(coffee) {}
+    Cheese(Pizza *pizza) : PizzaDecorator(pizza) {}
     string getDescription() const override
     {
-        return coffee->getDescription() + " Milk";
+        return pizza->getDescription() + ", Cheese";
     }
-    int getCost() const override
+    double getCost() const override
     {
-        return coffee->getCost() + 10;
+        return pizza->getCost() + 20.0;
     }
 };
-class Caramel : public CoffeeDecorator
+class Mushroom : public PizzaDecorator
 {
+private:
 public:
-    Caramel(Coffee *coffee) : CoffeeDecorator(coffee) {}
+    Mushroom(Pizza *pizza) : PizzaDecorator(pizza) {}
     string getDescription() const override
     {
-        return coffee->getDescription() + " caramel";
+        return pizza->getDescription() + ", Mushroom";
     }
-    int getCost() const override
+    double getCost() const override
     {
-        return coffee->getCost() + 20;
+        return pizza->getCost() + 20.0;
     }
 };
 int main()
 {
-    Coffee *coffee = new SimpleCoffee();
-    cout << coffee->getDescription() << " " << coffee->getCost() << endl;
-    coffee = new Milk(coffee);
-    cout << coffee->getDescription() << " " << coffee->getCost() << endl;
-    coffee = new Caramel(coffee);
-    cout << coffee->getDescription() << " " << coffee->getCost() << endl;
+    Pizza *pizza = new PlainPizza();
+    cout << pizza->getDescription() << " : " << pizza->getCost() << " INR" << endl;
+
+    // Add cheese
+    pizza = new Cheese(pizza);
+    cout << pizza->getDescription() << " : " << pizza->getCost() << " INR" << endl;
+
+    // Add mushrooms
+    pizza = new Mushroom(pizza);
+    cout << pizza->getDescription() << " : " << pizza->getCost() << " INR" << endl;
+
+    // Coffee *coffee = new SimpleCoffee();
+    // cout << coffee->getDescription() << " " << coffee->getCost() << endl;
+    // coffee = new Milk(coffee);
+    // cout << coffee->getDescription() << " " << coffee->getCost() << endl;
+    // coffee = new Caramel(coffee);
+    // cout << coffee->getDescription() << " " << coffee->getCost() << endl;
 
     return 0;
 }

@@ -157,7 +157,7 @@ int main()
     // Add mushrooms
     pizza = new Mushroom(pizza);
     cout << pizza->getDescription() << " : " << pizza->getCost() << " INR" << endl;
-
+    delete pizza;
     // Coffee *coffee = new SimpleCoffee();
     // cout << coffee->getDescription() << " " << coffee->getCost() << endl;
     // coffee = new Milk(coffee);

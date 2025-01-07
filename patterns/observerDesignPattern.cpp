@@ -245,18 +245,17 @@ public:
 
 int main()
 {
+    // client code for chat application
     User user1("kullu");
     User user2("Kuldeep");
     ChatServer server;
-
     server.connect(&user1);
     server.connect(&user2);
     server.sendMessage("Hello, everyone!");
     server.disconnect(&user2);
     server.sendMessage("see you all tomorrow");
-    // client code for chat application
 
-    // client code for news Agency system
+        // client code for news Agency system
     // SportChannel sportChannel;
     // WeatherChannel weatherChannel;
     // Agency newsAgency;

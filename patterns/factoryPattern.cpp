@@ -176,19 +176,131 @@ public:
         return new Blue();
     }
 };
+// more examples on factory design pattern
+// 2.logger factory
+class Logger
+{
+public:
+    virtual void log(const string &message) const = 0;
+    virtual ~Logger() = default;
+};
+// concrete prodects
+class ConsoleLogger : public Logger
+{
+public:
+    void log(const string &message) const override
+    {
+        cout << "Console Logger: " << message << endl;
+    }
+};
+class FileLogger : public Logger
+{
+public:
+    void log(const string &message) const override
+    {
+        cout << "File Logger: Writing '" << message << "' to a file." << endl;
+    }
+};
+// Factory class
+class LoggerFactory
+{
+public:
+    static Logger *createLogger(const string &type)
+    {
+        if (type == "console")
+            return new ConsoleLogger();
+        else if (type == "file")
+            return new FileLogger();
+        else
+            return nullptr;
+    }
+};
+
+// 3.operating system factory
+// product interface
+class OperatingSystem
+{
+public:
+    virtual void boot() const = 0;
+    virtual ~OperatingSystem() = default;
+};
+class Window : public OperatingSystem
+{
+public:
+    void boot() const override
+    {
+        cout << "Booting Window OS" << endl;
+    }
+};
+class Linux : public OperatingSystem
+{
+public:
+    void boot() const override
+    {
+        cout << "Booting Linux OS" << endl;
+    }
+};
+// Factory class
+class OSFactory
+{
+public:
+    static OperatingSystem *createOS(const string &osType)
+    {
+        if (osType == "Window")
+        {
+            return new Window();
+        }
+        else if (osType == "Linux")
+        {
+            return new Linux();
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+};
 int main()
 {
+    // Operating system
+    OperatingSystem *os = OSFactory::createOS("Window");
+    if (os)
+    {
+        os->boot();
+        delete os;
+    }
+
+    os = OSFactory::createOS("Linux");
+    if (os)
+    {
+        os->boot();
+        delete os;
+    }
+
+    // Logger factory
+    // Logger *logger = LoggerFactory::createLogger("console");
+    // if (logger)
+    // {
+    //     logger->log("test message 1");
+    //     delete logger;
+    // }
+    // logger = LoggerFactory::createLogger("file");
+    // if (logger)
+    // {
+    //     logger->log("test message 2");
+    //     delete logger;
+    // }
 
     // abstract factory
-    AbstractFactory *factory = new CircleFactory();
-    Shape *shape = factory->createShape();
-    Color *color = factory->createColor();
-    shape->draw();
-    color->fill();
+    // AbstractFactory *factory = new CircleFactory();
+    // Shape *shape = factory->createShape();
+    // Color *color = factory->createColor();
+    // shape->draw();
+    // color->fill();
 
-    delete color;
-    delete shape;
-    delete factory;
+    // delete color;
+    // delete shape;
+    // delete factory;
     // factory method
     // ShapeFactory *circleFactory = new CircleFactory();
     // ShapeFactory *rectangleFactory = new RectangleFactory();
@@ -217,5 +329,6 @@ int main()
     //     shape2->draw();
     //     delete shape2;
     // }
+
     return 0;
 }

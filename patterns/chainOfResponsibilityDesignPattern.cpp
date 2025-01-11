@@ -87,7 +87,6 @@ int main()
     teamLead->handleRequest("Budget Approval");
     teamLead->handleRequest("Recruitment");
     teamLead->handleRequest("Unknown Request");
-
     delete teamLead;
     delete hr;
     delete manager;

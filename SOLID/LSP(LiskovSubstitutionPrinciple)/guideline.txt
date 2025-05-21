@@ -1,0 +1,64 @@
+Liskov Substitution principle
+-> B is the child of A
+-> me chahta hu ki B class sirf ko inherit hi nhi balki uski tarah behave kre
+mtlb jo client hai use koi fark hi nhi lgna chahiye Parent aur child me
+
+# Guideline divided into 3 parts
+    1. Signature rule
+    2. Property rule
+    3. Method rule
+
+1. Signature rule
+class Animal{};
+class Dog: public Animal{};
+# Broad means Animal is a broad of Dog
+# Narrow means Dog is a narrow of Animal
+
+class Parent{
+    void solve(string &str){
+
+    }
+
+};
+class Child: Public Parent{
+    void solve(string &str){ // string must be same in solve() for parent as well as child but no need to get worry c++ will take care
+
+    }
+};
+
+###subrule 1: argument type
+## jo argument type hmne parent me pass ki hai whi child me honi chahiye
+## vaise koi dikkat ki baat nhi hai C++ will take itself
+
+###subrule 2: return type rule
+class Animal{};
+class Dog: public Animal{};
+
+class Parent{
+    Animal* random(){
+
+    }
+};
+class Child: public Parent{
+    Animal* random(){ OR   Dog* random(){  //return type Anuimal ya phir uski subclass ya child na ki uska grandParent 
+
+
+    }                      }
+};
+
+##jo child class hai ya to wo same return type rkhke ya phir narrow return type rkhke broad nhi rkh skta
+## also known as covariance
+
+###subrule 3:exception
+class Parent{
+    void m1(){
+        throw run_time error
+    }
+};
+class Child: public Parent{
+    void m1(){} // 
+};
+
+
+2. Property rule
+

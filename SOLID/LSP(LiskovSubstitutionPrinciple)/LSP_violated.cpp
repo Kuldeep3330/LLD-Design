@@ -14,10 +14,7 @@ private:
     int balance;
 
 public:
-    SavingAccount()
-    {
-        balance = 0;
-    }
+    SavingAccount() : balance(0) {}
     void deposit(int amount)
     {
         balance += amount;
@@ -43,10 +40,7 @@ private:
     int balance;
 
 public:
-    CurrentAccount()
-    {
-        balance = 0;
-    }
+    CurrentAccount() : balance(0) {}
     void deposit(int amount)
     {
         balance += amount;
@@ -72,10 +66,7 @@ private:
     int balance;
 
 public:
-    FixedAccount()
-    {
-        balance = 0;
-    }
+    FixedAccount() : balance(0) {}
     void deposit(int amount)
     {
         balance += amount;
@@ -124,5 +115,11 @@ int main()
 
     BankClient *client = new BankClient(accounts);
     client->processTransactions();
+
+    for (Account *acc : accounts)
+    {
+        delete acc;
+    }
+    delete client;
     return 0;
 }

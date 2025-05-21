@@ -16,6 +16,8 @@
 
 # L: liskov substitution principle(LSP)
 
+    Subclasses should be substituable for their base classes.
+
 # I: interface segregation principle(ISP)
 
 # D: dependency inversion principle(DIP)

@@ -23,3 +23,5 @@
     Clients should not be forced to depend on methods they do not use.
 
 # D: dependency inversion principle(DIP)
+
+    High level module should not depend on low level module but rather both should depend on abstraction.

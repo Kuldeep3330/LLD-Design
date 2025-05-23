@@ -1,6 +1,8 @@
-#include <bits/stdc++.h>
+#include <iostream>
+
 using namespace std;
 
+// Product Class and subclasses
 class Burger
 {
 public:
@@ -13,69 +15,124 @@ class BasicBurger : public Burger
 public:
     void prepare() override
     {
-        cout << "Basic burger\n";
+        cout << "Preparing Basic Burger with bun, patty, and ketchup!" << endl;
     }
 };
+
 class StandardBurger : public Burger
 {
 public:
     void prepare() override
     {
-        cout << "Standard burger\n";
+        cout << "Preparing Standard Burger with bun, patty, cheese, and lettuce!" << endl;
     }
 };
+
 class PremiumBurger : public Burger
 {
 public:
     void prepare() override
     {
-        cout << "Premium burger\n";
+        cout << "Preparing Premium Burger with gourmet bun, premium patty, cheese, lettuce, and secret sauce!" << endl;
     }
 };
 
-class Factory
+class BasicWheatBurger : public Burger
 {
 public:
-    virtual Burger *create() = 0;
-    virtual ~Factory() {}
-};
-
-class BasicBurgerFactory : public Factory
-{
-public:
-    Burger *create() override
+    void prepare() override
     {
-        return new BasicBurger();
+        cout << "Preparing Basic Wheat Burger with bun, patty, and ketchup!" << endl;
     }
 };
-class StandardBurgerFactory : public Factory
+
+class StandardWheatBurger : public Burger
 {
 public:
-    Burger *create() override
+    void prepare() override
     {
-        return new StandardBurger();
+        cout << "Preparing Standard Wheat Burger with bun, patty, cheese, and lettuce!" << endl;
+    }
+};
+
+class PremiumWheatBurger : public Burger
+{
+public:
+    void prepare() override
+    {
+        cout << "Preparing Premium Wheat Burger with gourmet bun, premium patty, cheese, lettuce, and secret sauce!" << endl;
+    }
+};
+
+class BurgerFactory
+{
+public:
+    virtual Burger *createBurger(string &type) = 0;
+    virtual ~BurgerFactory() {}
+};
+
+class SinghBurger : public BurgerFactory
+{
+public:
+    Burger *createBurger(string &type) override
+    {
+        if (type == "basic")
+        {
+            return new BasicBurger();
+        }
+        else if (type == "standard")
+        {
+            return new StandardBurger();
+        }
+        else if (type == "premium")
+        {
+            return new PremiumBurger();
+        }
+        else
+        {
+            cout << "Invalid burger type! " << endl;
+            return nullptr;
+        }
+    }
+};
+
+class KingBurger : public BurgerFactory
+{
+public:
+    Burger *createBurger(string &type) override
+    {
+        if (type == "basic")
+        {
+            return new BasicWheatBurger();
+        }
+        else if (type == "standard")
+        {
+            return new StandardWheatBurger();
+        }
+        else if (type == "premium")
+        {
+            return new PremiumWheatBurger();
+        }
+        else
+        {
+            cout << "Invalid burger type! " << endl;
+            return nullptr;
+        }
     }
 };
 
 int main()
 {
-    string type = "Standard";
-    Factory *factory = nullptr;
+    string type = "basic";
 
-    if (type == "Basic")
-        factory = new BasicBurgerFactory();
-    else if (type == "Standard")
-        factory = new StandardBurgerFactory();
-    else
-    {
-        cout << "Unknown burger type.\n";
-        return 1;
-    }
+    BurgerFactory *myFactory = new SinghBurger();
 
-    Burger *burger = factory->create();
+    Burger *burger = myFactory->createBurger(type);
+
     burger->prepare();
 
+    delete myFactory;
     delete burger;
-    delete factory;
+
     return 0;
 }

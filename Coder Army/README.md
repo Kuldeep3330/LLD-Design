@@ -9,3 +9,7 @@
 # Factory design pattern
 
     Simple factory: A factory class that decides which concrete class to instantiate
+
+    Factory Method: Defines an interface for creating objects but allows subclass to decide which class to instantiate.
+
+    Abstract factory:Provides an interface for creating families of related objects w/o specifying thier concrete classes

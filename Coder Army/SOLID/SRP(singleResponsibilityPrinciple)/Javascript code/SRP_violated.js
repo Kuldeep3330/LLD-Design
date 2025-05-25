@@ -2,7 +2,7 @@ class Product {
   constructor(name, price, id) {
     this.name = name
     this.price = price
-    this.id = this.id
+    this.id = id //minor bug fixed this.id = this.id
   }
 }
 

@@ -107,21 +107,7 @@ main()
     Database *db = new Database(cart);
     db->saveToDB();
 
-    // ShoppingCart cart;
-    // cart.addToCart(p1);
-    // cart.addToCart(p2);
-    // cart.addToCart(p3);
-
-    // Invoice invoice(&cart);
-    // invoice.printInvoice();
-
-    // Database db(&cart);
-    // db.saveToDB();
-
-    // cart.removeProduct(2);
-    // invoice.printInvoice();
-
-    delete p1;
+        delete p1;
     delete p2;
     delete p3;
     delete cart;

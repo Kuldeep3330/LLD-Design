@@ -207,6 +207,7 @@ public:
     virtual void recieveMessage(const string &message) = 0;
     virtual ~Client() = default;
 };
+
 // subject
 class ChatServer
 {
@@ -255,7 +256,7 @@ int main()
     server.disconnect(&user2);
     server.sendMessage("see you all tomorrow");
 
-        // client code for news Agency system
+    // client code for news Agency system
     // SportChannel sportChannel;
     // WeatherChannel weatherChannel;
     // Agency newsAgency;

@@ -20,6 +20,8 @@
 
 # I: interface segregation principle(ISP)
 
+    Many client apecific interface are better yhan one general purpaose interface
+            OR
     Clients should not be forced to depend on methods they do not use.
 
 # D: dependency inversion principle(DIP)

@@ -13,3 +13,7 @@
     Factory Method: Defines an interface for creating objects but allows subclass to decide which class to instantiate.
 
     Abstract factory:Provides an interface for creating families of related objects w/o specifying thier concrete classes
+
+# Decorator design pattern
+
+    Decorator pattern attaches additional responsibilities to an object dynammically decorator provides a flexible alternative to subclassing for extending functionality

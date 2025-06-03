@@ -82,6 +82,7 @@ public:
     virtual double getCost() const = 0;
     virtual ~Pizza() = default;
 };
+
 // concrete component
 class PlainPizza : public Pizza
 {
@@ -95,6 +96,7 @@ public:
         return 10.0;
     }
 };
+
 // Decorator
 class PizzaDecorator : public Pizza
 {

@@ -17,3 +17,13 @@
 # Decorator design pattern
 
     Decorator pattern attaches additional responsibilities to an object dynammically decorator provides a flexible alternative to subclassing for extending functionality
+
+# Command Design Pattern
+
+# Adapter Design Pattern
+
+# Composite Design Pattern
+
+# below design pattern we will discuss to solve specific problem
+
+# Template Design Pattern

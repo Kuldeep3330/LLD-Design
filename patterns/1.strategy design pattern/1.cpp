@@ -28,6 +28,10 @@ public:
     }
 };
 // context class
+// PaymentContext is a high-level module (defines how payment is processed).
+// whereas CreditCard, PayTm are low-level modules (define specific ways of payment).
+// DIP
+// High-level modules should not depend on low-level modules. Both should depend on abstractions.
 class PaymentContext
 {
 private:

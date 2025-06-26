@@ -6,92 +6,92 @@ Building a Car
 Scenario:
 You are designing a system to create different types of cars (e.g., Sedan, SUV). Each car has multiple components like the engine, wheels, and interior.
 */
-// 1.product
-class Car
-{
-public:
-    string engine;
-    string wheels;
-    void showSpecification() const
-    {
-        cout << "Engine: " << engine << endl;
-        cout << "Wheels: " << wheels << endl;
-    }
-};
-// Builder Interface
-class CarBuilder
-{
-public:
-    virtual void buildEngine() = 0;
-    virtual void buildwheels() = 0;
-    virtual Car *getCar() = 0;
-    virtual ~CarBuilder() = default;
-};
-// 3. concrete builder
-class SedanBuilder : public CarBuilder
-{
-private:
-    Car *car;
+// // 1.product
+// class Car
+// {
+// public:
+//     string engine;
+//     string wheels;
+//     void showSpecification() const
+//     {
+//         cout << "Engine: " << engine << endl;
+//         cout << "Wheels: " << wheels << endl;
+//     }
+// };
+// // Builder Interface
+// class CarBuilder
+// {
+// public:
+//     virtual void buildEngine() = 0;
+//     virtual void buildwheels() = 0;
+//     virtual Car *getCar() = 0;
+//     virtual ~CarBuilder() = default;
+// };
+// // 3. concrete builder
+// class SedanBuilder : public CarBuilder
+// {
+// private:
+//     Car *car;
 
-public:
-    SedanBuilder()
-    {
-        car = new Car();
-    }
-    void buildEngine() override
-    {
-        car->engine = "4L CNG engine";
-    }
-    void buildwheels() override
-    {
-        car->wheels = "16 inch alloy wheels";
-    }
-    Car *getCar() override
-    {
-        return car;
-    }
-};
-class NexonBuilder : public CarBuilder
-{
-private:
-    Car *car;
+// public:
+//     SedanBuilder()
+//     {
+//         car = new Car();
+//     }
+//     void buildEngine() override
+//     {
+//         car->engine = "4L CNG engine";
+//     }
+//     void buildwheels() override
+//     {
+//         car->wheels = "16 inch alloy wheels";
+//     }
+//     Car *getCar() override
+//     {
+//         return car;
+//     }
+// };
+// class NexonBuilder : public CarBuilder
+// {
+// private:
+//     Car *car;
 
-public:
-    NexonBuilder()
-    {
-        car = new Car();
-    }
-    void buildEngine() override
-    {
-        car->engine = "8.5L CNG engine";
-    }
-    void buildwheels() override
-    {
-        car->wheels = "24 inch alloy wheels";
-    }
-    Car *getCar() override
-    {
-        return car;
-    }
-};
-// Director
-class CarDirector
-{
-private:
-    CarBuilder *builder;
+// public:
+//     NexonBuilder()
+//     {
+//         car = new Car();
+//     }
+//     void buildEngine() override
+//     {
+//         car->engine = "8.5L CNG engine";
+//     }
+//     void buildwheels() override
+//     {
+//         car->wheels = "24 inch alloy wheels";
+//     }
+//     Car *getCar() override
+//     {
+//         return car;
+//     }
+// };
+// // Director
+// class CarDirector
+// {
+// private:
+//     CarBuilder *builder;
 
-public:
-    void setBuilder(CarBuilder *builder)
-    {
-        this->builder = builder;
-    }
-    Car *constructCar()
-    {
-        builder->buildEngine();
-        builder->buildwheels();
-        return builder->getCar();
-    }
-};
+// public:
+//     void setBuilder(CarBuilder *builder)
+//     {
+//         this->builder = builder;
+//     }
+//     Car *constructCar()
+//     {
+//         builder->buildEngine();
+//         builder->buildwheels();
+//         return builder->getCar();
+//     }
+// };
 
 // Building a computer
 class Computer
@@ -105,6 +105,7 @@ public:
         cout << "RAM: " << ram << endl;
     }
 };
+
 // Builder Interface
 class ComputerBuilder
 {
@@ -114,6 +115,7 @@ public:
     virtual Computer *getComputer() = 0;
     virtual ~ComputerBuilder() = default;
 };
+
 // concrete builders
 class GamingPCBuilder : public ComputerBuilder
 {

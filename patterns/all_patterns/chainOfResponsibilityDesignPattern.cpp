@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 using namespace std;
+// logger
+// ATM dispenser
+// Employee
 class Handler
 {
 protected:

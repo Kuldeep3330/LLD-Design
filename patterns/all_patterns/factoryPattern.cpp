@@ -77,7 +77,7 @@ using namespace std;
 //     virtual Shape *createShape() const = 0; // factory method
 //     virtual ~ShapeFactory() = default;
 // };
-// // concrete Fcatories
+// // concrete Fatories
 // class CircleFactory : public ShapeFactory
 // {
 // public:

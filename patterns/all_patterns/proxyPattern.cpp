@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+ #include <bits/stdc++.h>
 using namespace std;
 
 class Image
@@ -24,7 +24,7 @@ class ProxyImage : public Image
 private:
     string filename;
     string userRole;
-    unique_ptr<RealImage> realImage;
+    unique_ptr<RealImage> realImage;//RealImage *realImage;
 
 public:
     ProxyImage(const string &filename, const string &userRole)
@@ -36,7 +36,7 @@ public:
         {
             if (realImage == nullptr)
             {
-                realImage == make_unique<RealImage>(filename);
+                realImage == make_unique<RealImage>(filename);//realImage=new RealImage(filename);
             }
             else
             {

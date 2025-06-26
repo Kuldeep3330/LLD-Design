@@ -41,27 +41,7 @@ public:
 };
 
 // OCP-friendly Factory with Registration (Raw Pointer version)
-class BurgerFactory
-{
-private:
-    unordered_map<string, function<Burger *()>> creators;
-
-public:
-    void registerBurger(const string &type, function<Burger *()> creator)
-    {
-        creators[type] = creator;
-    }
-
-    Burger *create(const string &type)
-    {
-        auto it = creators.find(type);
-        if (it != creators.end())
-        {
-            return it->second(); // Call the creator function
-        }
-        return nullptr;
-    }
-};
+ 
 
 int main()
 {

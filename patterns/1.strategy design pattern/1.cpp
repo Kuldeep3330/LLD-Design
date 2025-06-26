@@ -30,8 +30,10 @@ public:
 // context class
 // PaymentContext is a high-level module (defines how payment is processed).
 // whereas CreditCard, PayTm are low-level modules (define specific ways of payment).
-// DIP
-// High-level modules should not depend on low-level modules. Both should depend on abstractions.
+// DIP is saying
+// " High-level modules (PaymentContext) should 
+//   not depend on low-level modules(CreditCard, PayTm).
+//   Both should depend on abstractions(PaymentStrategy). "
 class PaymentContext
 {
 private:

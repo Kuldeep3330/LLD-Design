@@ -7,60 +7,60 @@ traffic light system:
 The light can be Red, Yellow, or Green. The behavior of the light changes depending on its current state.
 */
 // state interface
-// class TrafficLightState
-// {
-// public:
-//     virtual void handle() const = 0;
-//     virtual ~TrafficLightState() {}
-// };
+class TrafficLightState
+{
+public:
+    virtual void handle() const = 0;
+    virtual ~TrafficLightState() {}
+};
 // // concrete Interfaces
-// class RedLight : public TrafficLightState
-// {
-// public:
-//     void handle() const override
-//     {
-//         cout << "RedLight ON!" << endl;
-//     }
-// };
-// class YellowLight : public TrafficLightState
-// {
-// public:
-//     void handle() const override
-//     {
-//         cout << "YellowLight ON!" << endl;
-//     }
-// };
-// class GreenLight : public TrafficLightState
-// {
-// public:
-//     void handle() const override
-//     {
-//         cout << "GreenLight ON!" << endl;
-//     }
-// };
+class RedLight : public TrafficLightState
+{
+public:
+    void handle() const override
+    {
+        cout << "RedLight ON!" << endl;
+    }
+};
+class YellowLight : public TrafficLightState
+{
+public:
+    void handle() const override
+    {
+        cout << "YellowLight ON!" << endl;
+    }
+};
+class GreenLight : public TrafficLightState
+{
+public:
+    void handle() const override
+    {
+        cout << "GreenLight ON!" << endl;
+    }
+};
 // // context(The object whose behavior changes based on its state.)
-// class TrafficLightContext
-// {
-// private:
-//     shared_ptr<TrafficLightState> state;
+class TrafficLightContext
+{
+private:
+    shared_ptr<TrafficLightState> state;
 
-// public:
-//     void setState(shared_ptr<TrafficLightState> newState)
-//     {
-//         state = newState;
-//     }
-//     void request() const
-//     {
-//         if (state)
-//         {
-//             state->handle();
-//         }
-//         else
-//         {
-//             cout << "No state is set!\n";
-//         }
-//     }
-// };
+public:
+    void setState(shared_ptr<TrafficLightState> newState)
+    {
+        state = newState;
+    }
+    void request() const
+    {
+        if (state)
+        {
+            state->handle();
+        }
+        else
+        {
+            cout << "No state is set!\n";
+        }
+    }
+};
 
 // Example 2: Document overflow
 // state interface

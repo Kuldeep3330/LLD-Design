@@ -144,60 +144,61 @@ using namespace std;
 
 // News Agency System
 // observer
-// class NewsChannel
-// {
-// public:
-//     virtual void update(const string &news) = 0;
-//     virtual ~NewsChannel() = default;
-// };
-// // subject interface
-// class NewsAgency
-// {
-// public:
-//     virtual void addChannel(NewsChannel *channel) = 0;
-//     virtual void removeChannel(NewsChannel *channel) = 0;
-//     virtual void broadcast(const string &news) = 0;
-//     virtual ~NewsAgency() = default;
-// };
+class NewsChannel
+{
+public:
+    virtual void update(const string &news) = 0;
+    virtual ~NewsChannel() = default;
+};
+// subject interface
+class NewsAgency
+{
+public:
+    virtual void addChannel(NewsChannel *channel) = 0;
+    virtual void removeChannel(NewsChannel *channel) = 0;
+    virtual void broadcast(const string &news) = 0;
+    virtual ~NewsAgency() = default;
+};
 // // concrete subject
-// class Agency : public NewsAgency
-// {
-// private:
-//     vector<NewsChannel *> channels;
-// public:
-//     void addChannel(NewsChannel *channel) override
-//     {
-//         channels.push_back(channel);
-//     }
-//     void removeChannel(NewsChannel *channel) override
-//     {
-//         channels.erase(remove(channels.begin(), channels.end(), channel), channels.end());
-//     }
-//     void broadcast(const string &news) override
-//     {
-//         for (auto it : channels)
-//         {
-//             it->update(news);
-//         }
-//     }
-// };
-// // concrete observer
-// class SportChannel : public NewsChannel
-// {
-// public:
-//     void update(const string &news) override
-//     {
-//         cout << "sport channel: " << news << endl;
-//     }
-// };
-// class WeatherChannel : public NewsChannel
-// {
-// public:
-//     void update(const string &news) override
-//     {
-//         cout << "Weather channel: " << news << endl;
-//     }
-// };
+class Agency : public NewsAgency
+{
+private:
+    vector<NewsChannel *> channels;
+
+public:
+    void addChannel(NewsChannel *channel) override
+    {
+        channels.push_back(channel);
+    }
+    void removeChannel(NewsChannel *channel) override
+    {
+        channels.erase(remove(channels.begin(), channels.end(), channel), channels.end());
+    }
+    void broadcast(const string &news) override
+    {
+        for (auto it : channels)
+        {
+            it->update(news);
+        }
+    }
+};
+// concrete observer
+class SportChannel : public NewsChannel
+{
+public:
+    void update(const string &news) override
+    {
+        cout << "sport channel: " << news << endl;
+    }
+};
+class WeatherChannel : public NewsChannel
+{
+public:
+    void update(const string &news) override
+    {
+        cout << "Weather channel: " << news << endl;
+    }
+};
 
 // Chat application
 // observer

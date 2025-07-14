@@ -1,7 +1,16 @@
 Liskov Substitution principle
 -> B is the child of A
--> me chahta hu ki B class sirf ko inherit hi nhi balki uski tarah behave kre
+-> me chahta hu ki B class sirf A ko inherit hi nhi balki uski tarah behave kre
 mtlb jo client hai use koi fark hi nhi lgna chahiye Parent aur child me
+
+Broad :- ek class dusre class ki broader class (parent ya usse upar) hai
+Narrow
+
+example:-
+class Animal{};
+class Dog: public Animal{};
+# Broad means Animal is a broad(parent) of Dog
+# Narrow means Dog is a narrow(child) of Animal
 
 # Guideline divided into 3 parts
     1. Signature rule
@@ -9,10 +18,6 @@ mtlb jo client hai use koi fark hi nhi lgna chahiye Parent aur child me
     3. Method rule
 
 1. Signature rule
-class Animal{};
-class Dog: public Animal{};
-# Broad means Animal is a broad of Dog
-# Narrow means Dog is a narrow of Animal
 
 class Parent{
     void solve(string &str){
@@ -21,8 +26,9 @@ class Parent{
 
 };
 class Child: Public Parent{
-    void solve(string &str){ // string must be same in solve() for parent as well as child but no need to get worry c++ will take care
-
+    void solve(string &str){ // string must be same in solve() for parent
+    // as well as child but no need to get worry c++ will take care
+// argument me string paas kro ya phir uski koi broader 
     }
 };
 

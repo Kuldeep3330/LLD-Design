@@ -35,7 +35,12 @@ public:
     void getValue() noexcept(false) override
     { // Child throws out_of_range exception
         throw out_of_range("Child error");
-        // throw runtime_error("Child Error"); // This is Wrong
+        // throw runtime_error("Child Error"); // This is Wrong but C++ compiler still allows this!
+        // because In C++, this is not enforced by the compiler but Java Does
+        // ✔️ Java compiler enforces that the child can only throw the same or narrower exceptions.
+        /*  1.In C++, you can override a base class virtual function and throw any exception you want.
+            2.The C++ compiler does not check that the child throws "fewer" or "narrower" exceptions than the base.
+        */
     }
 };
 

@@ -14,8 +14,15 @@ class Dog: public Animal{};
 
 # Guideline divided into 3 parts
     1. Signature rule
+        Method Argument rule
+        Return Type Rule
+        Exception rule        
     2. Property rule
+        Class Invariants Rule
+        History Constraints
     3. Method rule
+        PreCondition Rule
+        PostCondition Rule
 
 1. Signature rule
 
@@ -65,6 +72,26 @@ class Child: public Parent{
     void m1(){} // 
 };
 
+⚡ JavaScript equivalent
+💬 Exception behavior in JS
+JavaScript has only runtime exceptions.
+There is no enforced rule on "throws narrower exception".
+All exceptions are derived from Error.
+
+💬 Important points in JS
+JS does not enforce exception hierarchy rules — you can throw any error from an overriding method.
+
+We manually check error type using instanceof if needed.
+
+The concept of "narrower exceptions" is only a best practice in JS, not a language rule.
+
+🟢 Summary of mapping
+ Concept	                    C++	                                        JavaScript
+Explicit exception spec	    Yes (but not enforced)	No
+Exception type hierarchy	Standard hierarchy	    All errors derived from Error
+Enforced "narrower throws"	No	                    No
+Catch type checking	        catch (const Type&)	    if (e instanceof Type)
 
 2. Property rule
-
+    (i)class invariant rule
+    (ii)History constraint rule

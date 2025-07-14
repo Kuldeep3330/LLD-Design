@@ -48,7 +48,7 @@ public:
     {
         cout << "Applying brakes" << endl;
         speed -= 20;
-        charge += 10;
+        charge += 10; //// Additional guarantee
     }
 };
 
@@ -61,3 +61,6 @@ int main()
 
     return 0;
 }
+
+// ✅ Strengthening the postcondition does not break
+//  Liskov Substitution Principle (LSP).
